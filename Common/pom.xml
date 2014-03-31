@@ -10,19 +10,33 @@
     <name>Common</name>
     <url>http://maven.apache.org</url>
 
+    <parent>
+        <groupId>ua.com.lsd25</groupId>
+        <artifactId>Ciklum_test</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+
 
     </dependencies>
+
+    <build>
+
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <finalName>${project.name}-${project.version}</finalName>
+        <outputDirectory>${basedir}/build/classes/</outputDirectory>
+        <directory>../build/${project.artifactId}</directory>
+
+        <plugins>
+
+        </plugins>
+
+    </build>
 
 </project>

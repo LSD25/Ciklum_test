@@ -10,20 +10,72 @@
     <name>WebClient Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <parent>
+        <groupId>ua.com.lsd25</groupId>
+        <artifactId>Ciklum_test</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <dependencies>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>ua.com.lsd25</groupId>
+            <artifactId>Common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
 
     <build>
 
-        <finalName>WebClient</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <finalName>${project.name}-${project.version}</finalName>
+        <outputDirectory>${basedir}/build/classes/</outputDirectory>
+        <directory>../build/${project.artifactId}</directory>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin-version}</version>
+                <configuration>
+                    <warName>${project.name}</warName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>${maven-jetty-plugin-version}</version>
+                <configuration>
+                    <webDefaultXml>src/main/resources/jetty/webdefault.xml</webDefaultXml>
+                    <jettyConfig>src/main/resources/jetty/jetty-jmx.xml</jettyConfig>
+                    <contextPath>/</contextPath>
+                </configuration>
+                <dependencies>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin-version}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
     </build>
+
+    <properties>
+
+        <maven-jetty-plugin-version>6.1.26RC0</maven-jetty-plugin-version>
+        <maven-resources-plugin-version>2.6</maven-resources-plugin-version>
+        <maven-war-plugin-version>2.3</maven-war-plugin-version>
+
+    </properties>
 
 </project>
