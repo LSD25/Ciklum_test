@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.com.lsd25.common.entity.Book;
-import ua.com.lsd25.db.common.IBookDao;
+import ua.com.lsd25.db.common.dao.IBookDao;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @author Victor Zagnitko on 31.03.2014.
  */
 @Repository
-public class BookDao extends AuthenticationBasicDAO<Book, ObjectId> implements IBookDao {
+public class BookDao extends BasicDao<Book, ObjectId> implements IBookDao {
 
     /**
      * Constructor for create connection to database
@@ -30,7 +30,7 @@ public class BookDao extends AuthenticationBasicDAO<Book, ObjectId> implements I
      */
     @Autowired
     protected BookDao(Mongo mongo, Morphia morphia, String dbName, String username, String password, boolean isAuthenticated) {
-        super(mongo, morphia, dbName, username, password, isAuthenticated, Book.class);
+        super(mongo, morphia, dbName, username, password, isAuthenticated);
     }
 
     @Override

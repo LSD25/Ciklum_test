@@ -1,15 +1,14 @@
-package ua.com.lsd25.db.common;
+package ua.com.lsd25.db.common.service;
 
 import ua.com.lsd25.common.entity.Book;
 
 import java.util.List;
 
 /**
- * This interface contains method for BookDAO class
- *
+ * Describe book service
  * @author Victor Zagnitko on 31.03.2014.
  */
-public interface IBookDao extends IBasicDao<Book> {
+public interface IBookService extends IBasicService<Book> {
 
     /**
      * Get all books in collection

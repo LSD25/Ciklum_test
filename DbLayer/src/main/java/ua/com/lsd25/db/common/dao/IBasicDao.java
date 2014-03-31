@@ -1,4 +1,4 @@
-package ua.com.lsd25.db.common;
+package ua.com.lsd25.db.common.dao;
 
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
