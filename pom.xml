@@ -38,6 +38,12 @@
             <version>${slf4j-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava-version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -98,6 +104,7 @@
         <java-version>1.7</java-version>
         <spring-version>4.0.3.RELEASE</spring-version>
         <slf4j-version>1.7.6</slf4j-version>
+        <guava-version>16.0.1</guava-version>
 
         <!-- Plugin's -->
         <maven-dependency-plugin-version>2.8</maven-dependency-plugin-version>

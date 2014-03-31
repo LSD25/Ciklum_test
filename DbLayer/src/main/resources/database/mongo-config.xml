@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="morphia" class="com.google.code.morphia.Morphia"/>
+
+    <!-- Load in application properties reference -->
+    <bean id="mongoProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:/database/configuration.properties"/>
+    </bean>
+
+    <bean id="booksDb" class="java.lang.String">
+        <constructor-arg value="Books" index="0"/>
+    </bean>
+
+    <!-- Mongo authentication parameters start -->
+
+    <bean class="java.lang.String" id="mongoUserName">
+        <constructor-arg value="${mongo.user.name}"/>
+    </bean>
+
+    <bean class="java.lang.String" id="mongoUserPassword">
+        <constructor-arg value="${mongo.user.password}"/>
+    </bean>
+
+    <bean class="java.lang.Boolean" id="isAuthenticated">
+        <constructor-arg value="${is.authenticated}"/>
+    </bean>
+
+    <!-- Mongo authentication parameters end -->
+
+    <bean id="mongoOptionsFactory" class="ua.com.lsd25.db.dao.MongoOptionsFactoryBean">
+        <property name="threadsAllowedToBlockForConnectionMultiplier" value="1500"/>
+        <property name="connectionsPerHost" value="20"/>
+        <property name="autoConnectRetry" value="true"/>
+        <property name="socketKeepAlive" value="true"/>
+    </bean>
+
+    <bean class="com.mongodb.Mongo" id="mng00">
+        <!-- <constructor-arg value="mng00:27027" index="0" /> -->
+        <!-- <constructor-arg value="mng00:27017" index="0" /> -->
+        <constructor-arg value="${data.base.host}:${data.base.port}" index="0"/>
+        <constructor-arg ref="mongoOptionsFactory" index="1"/>
+    </bean>
+
+    <bean class="ua.com.lsd25.db.dao.BookDao" id="bookDao">
+        <constructor-arg ref="mng00" index="0"/>
+        <constructor-arg ref="morphia" index="1"/>
+        <constructor-arg ref="booksDb" index="2"/>
+        <constructor-arg ref="mongoUserName" index="3"/>
+        <constructor-arg ref="mongoUserPassword" index="4"/>
+        <constructor-arg ref="isAuthenticated" index="5"/>
+    </bean>
+
+</beans>
