@@ -3,18 +3,20 @@ package ua.com.lsd25.common.entity;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Indexed;
-import com.sun.corba.se.spi.ior.ObjectId;
+import org.bson.types.ObjectId;
+
+import java.io.Serializable;
 
 /**
  * @author Victor Zagnitko on 31.03.2014.
  *         This entity describe Book
  */
 @Entity(noClassnameStored = true)
-public class Book {
+public final class Book implements Serializable {
 
     @Id
     @Indexed
-    private ObjectId id;
+    private ObjectId id = new ObjectId();
 
     private String name;
 
@@ -66,11 +68,5 @@ public class Book {
     public ObjectId getId() {
         return id;
     }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
-
 
 }

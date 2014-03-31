@@ -105,6 +105,7 @@
         <spring-version>4.0.3.RELEASE</spring-version>
         <slf4j-version>1.7.6</slf4j-version>
         <guava-version>16.0.1</guava-version>
+        <mongo-java-driver-version>2.12.0-rc3</mongo-java-driver-version>
 
         <!-- Plugin's -->
         <maven-dependency-plugin-version>2.8</maven-dependency-plugin-version>

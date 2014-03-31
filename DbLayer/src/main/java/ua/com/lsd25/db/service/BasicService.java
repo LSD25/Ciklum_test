@@ -3,8 +3,8 @@ package ua.com.lsd25.db.service;
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import ua.com.lsd25.db.common.dao.IBasicDao;
 import ua.com.lsd25.db.common.service.IBasicService;
-import ua.com.lsd25.db.dao.BasicDao;
 
 /**
  * This class contains basic method for all services
@@ -14,7 +14,7 @@ import ua.com.lsd25.db.dao.BasicDao;
 public abstract class BasicService<T> implements IBasicService<T> {
 
     @Autowired
-    protected BasicDao mBasicDao;
+    protected IBasicDao mBasicDao;
 
     /**
      *
@@ -22,8 +22,6 @@ public abstract class BasicService<T> implements IBasicService<T> {
     public BasicService() {
         super();
     }
-
-    abstract void setDao(BasicDao basicDao);
 
     @Override
     public T findEntityById(String sId) {
@@ -54,5 +52,7 @@ public abstract class BasicService<T> implements IBasicService<T> {
     public void addDocumentToCollection(T entity) {
         this.mBasicDao.addDocumentToCollection(entity);
     }
+
+    protected abstract void initDao(IBasicDao basicDao);
 
 }

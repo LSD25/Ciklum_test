@@ -7,11 +7,15 @@ import com.google.common.base.Preconditions;
 import com.mongodb.Mongo;
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Victor Zagnitko on 31.03.2014.
  */
 public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> {
+
+    private final Logger log = LoggerFactory.getLogger(BasicDao.class);
 
     /**
      * Constructor for create connection to database
@@ -67,6 +71,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> {
         }
         Key<T> key = getDatastore().merge(entity);
         Preconditions.checkNotNull(key, "Entity don't merged");
+        log.info("Success merged");
     }
 
     /**
@@ -102,6 +107,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> {
         Preconditions.checkNotNull(entity, "Entity argument is wrong");
         Key<T> key = getDatastore().save(entity);
         Preconditions.checkNotNull(key, "Entity don't saved");
+        log.info("Success added new document");
     }
 
 }
