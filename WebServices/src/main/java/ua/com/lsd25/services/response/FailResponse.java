@@ -13,7 +13,7 @@ public final class FailResponse extends BasicResponse {
      *
      */
     public FailResponse() {
-        super();
+        this(null);
     }
 
     public FailResponse(String errorMessage) {

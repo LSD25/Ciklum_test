@@ -10,12 +10,8 @@ import ua.com.lsd25.services.response.BasicResponse;
 import ua.com.lsd25.services.response.FailResponse;
 import ua.com.lsd25.services.response.SuccessResponse;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.Map;
 
 /**
  * Book webservice
@@ -42,11 +38,11 @@ public class BookController {
     @Path(value = "/add-book")
     @Produces(value = "application/json")
     @Consumes(value = "application/json")
-    public Response addBook(Book request) {
+    public Response addBookController(Book request) {
         BasicResponse basicResponse = null;
         try {
             bookService.addDocumentToCollection(request);
-            basicResponse = new SuccessResponse();
+            basicResponse = new SuccessResponse<>();
         } catch (Exception exc) {
             exc.getStackTrace();
             basicResponse = new FailResponse(exc.getMessage());
@@ -55,13 +51,66 @@ public class BookController {
         }
     }
 
-    private Book initBook(Map<String, ?> request) {
-        Book book = new Book();
-        book.setAuthor(String.valueOf(request.get("author")));
-        book.setDescription(String.valueOf(request.get("description")));
-        book.setName(String.valueOf(request.get("name")));
-        book.setPictureOfCover(String.valueOf(request.get("pictureOfCover")));
-        return book;
+    @GET
+    @Path(value = "/{id}")
+    @Produces(value = "application/json")
+    public Response findBookByIdController(@PathParam(value = "id") String id) {
+        BasicResponse basicResponse = null;
+        try {
+            basicResponse = new SuccessResponse<>(bookService.findEntityById(id));
+        } catch (Exception exc) {
+            exc.getStackTrace();
+            basicResponse = new FailResponse(exc.getMessage());
+        } finally {
+            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+        }
+    }
+
+    @PUT
+    @Path(value = "/update")
+    @Produces(value = "application/json")
+    @Consumes(value = "application/json")
+    public Response updateBookController(Book request) {
+        BasicResponse basicResponse = null;
+        try {
+            bookService.update(request);
+            basicResponse = new SuccessResponse<>();
+        } catch (Exception exc) {
+            exc.getStackTrace();
+            basicResponse = new FailResponse(exc.getMessage());
+        } finally {
+            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+        }
+    }
+
+    @DELETE
+    @Path(value = "/{id}/delete")
+    @Produces(value = "application/json")
+    public Response deleteBookController(@PathParam(value = "id") String id) {
+        BasicResponse basicResponse = null;
+        try {
+            basicResponse = new SuccessResponse<>(bookService.delete(id));
+        } catch (Exception exc) {
+            exc.getStackTrace();
+            basicResponse = new FailResponse(exc.getMessage());
+        } finally {
+            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+        }
+    }
+
+    @GET
+    @Path(value = "/list")
+    @Produces(value = "application/json")
+    public Response listBookController() {
+        BasicResponse basicResponse = null;
+        try {
+            basicResponse = new SuccessResponse<>(bookService.getBooks());
+        } catch (Exception exc) {
+            exc.getStackTrace();
+            basicResponse = new FailResponse(exc.getMessage());
+        } finally {
+            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+        }
     }
 
 }
