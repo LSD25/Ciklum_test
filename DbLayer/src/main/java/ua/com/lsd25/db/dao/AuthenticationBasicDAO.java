@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
  * @param <T> Collection to store in db
  * @param <K> Key in Collection
  * @author Victor Zagnitko on 31.03.2014.
- *         <p/>
  *         This class contains constructor's for auth
  */
 public class AuthenticationBasicDAO<T, K> extends BasicDAO<T, K> {
@@ -26,7 +25,7 @@ public class AuthenticationBasicDAO<T, K> extends BasicDAO<T, K> {
      * @param dbName          collection name
      * @param username        to connect to database
      * @param password        to connect to database
-     * @param isAuthenticated
+     * @param isAuthenticated check auth
      */
     protected AuthenticationBasicDAO(Mongo mongo, Morphia morphia, String dbName, String username, String password,
                                      boolean isAuthenticated) {

@@ -26,7 +26,7 @@ public class BookDao extends BasicDao<Book, ObjectId> implements IBookDao {
      * @param dbName          collection name
      * @param username        to connect to database
      * @param password        to connect to database
-     * @param isAuthenticated
+     * @param isAuthenticated check auth
      */
     @Autowired
     protected BookDao(Mongo mongo, Morphia morphia, String dbName, String username, String password, boolean isAuthenticated) {

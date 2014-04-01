@@ -61,7 +61,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <morphia-version>0.104</morphia-version>
-        <jackson-version>1.9.13</jackson-version>
+
     </properties>
 
 </project>

@@ -37,7 +37,7 @@ public interface IBasicDao<T> {
      * Delete document from collection by object id
      *
      * @param id to delete in database
-     * @return
+     * @return result of operation
      */
     WriteResult delete(ObjectId id);
 
@@ -45,7 +45,7 @@ public interface IBasicDao<T> {
      * Delete document from collection by string id
      *
      * @param sId to delete in database
-     * @return
+     * @return result of operation
      */
     WriteResult delete(String sId);
 

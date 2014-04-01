@@ -2,7 +2,6 @@ package ua.com.lsd25.db.service;
 
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.lsd25.db.common.dao.IBasicDao;
 import ua.com.lsd25.db.common.service.IBasicService;
 
@@ -13,7 +12,6 @@ import ua.com.lsd25.db.common.service.IBasicService;
  */
 public abstract class BasicService<T> implements IBasicService<T> {
 
-    @Autowired
     protected IBasicDao mBasicDao;
 
     /**

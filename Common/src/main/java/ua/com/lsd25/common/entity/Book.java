@@ -59,14 +59,12 @@ public final class Book extends BasicEntity {
 
     /**
      * Determines whether two possibly-null objects are equal. Returns:
-     * <p/>
      * <ul>
      * <li>{@code true} if {@code a} and {@code b} are both null.
      * <li>{@code true} if {@code a} and {@code b} are both non-null and they are
      * equal according to {@link Object#equals(Object)}.
      * <li>{@code false} in all other situations.
      * </ul>
-     * <p/>
      * <p>This assumes that any non-null objects passed to this function conform
      * to the {@code equals()} contract.
      */
@@ -91,7 +89,6 @@ public final class Book extends BasicEntity {
      * calling {@link java.util.Arrays#hashCode(Object[])}. Note that array arguments to
      * this method, with the exception of a single Object array, do not get any
      * special handling; their hash codes are based on identity and not contents.
-     * <p/>
      * <p>This is useful for implementing {@link Object#hashCode()}. For example,
      * in an object that has three properties, {@code x}, {@code y}, and
      * {@code z}, one could write:
@@ -99,7 +96,6 @@ public final class Book extends BasicEntity {
      *   public int hashCode() {
      *     return Objects.hashCode(getX(), getY(), getZ());
      *   }}</pre>
-     * <p/>
      * <p><b>Warning</b>: When a single object is supplied, the returned hash code
      * does not equal the hash code of that object.
      */
@@ -116,7 +112,7 @@ public final class Book extends BasicEntity {
      * Method using Guava to provide String representation of this employee
      * instance.
      *
-     * @return My String representation.
+     * @return String representation.
      */
     @Override
     public String toString() {

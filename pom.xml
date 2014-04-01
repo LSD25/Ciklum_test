@@ -93,6 +93,19 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
     </build>
@@ -111,6 +124,7 @@
         <maven-dependency-plugin-version>2.8</maven-dependency-plugin-version>
         <maven-compiler-plugin-version>3.1</maven-compiler-plugin-version>
         <maven-jar-plugin-version>2.4</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>2.6.1</maven-javadoc-plugin-version>
 
         <!-- Flags -->
 
@@ -120,5 +134,15 @@
         <optimize-flag>false</optimize-flag>
 
     </properties>
+
+    <pluginRepositories>
+
+        <pluginRepository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </pluginRepository>
+
+    </pluginRepositories>
 
 </project>

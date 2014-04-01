@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
  */
 @Controller
 @Path(value = "/book")
-public class BookController {
+public class BookController extends BasicController {
 
     private final Logger log = LoggerFactory.getLogger(BookController.class);
 
@@ -34,35 +34,33 @@ public class BookController {
         super();
     }
 
-    @POST
-    @Path(value = "/add-book")
-    @Produces(value = "application/json")
-    @Consumes(value = "application/json")
-    public Response addBookController(Book request) {
-        BasicResponse basicResponse = null;
-        try {
-            bookService.addDocumentToCollection(request);
-            basicResponse = new SuccessResponse<>();
-        } catch (Exception exc) {
-            exc.getStackTrace();
-            basicResponse = new FailResponse(exc.getMessage());
-        } finally {
-            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
-        }
-    }
-
     @GET
     @Path(value = "/{id}")
     @Produces(value = "application/json")
     public Response findBookByIdController(@PathParam(value = "id") String id) {
-        BasicResponse basicResponse = null;
+        BasicResponse response = null;
         try {
-            basicResponse = new SuccessResponse<>(bookService.findEntityById(id));
+            response = new SuccessResponse<>(bookService.findEntityById(id));
         } catch (Exception exc) {
             exc.getStackTrace();
-            basicResponse = new FailResponse(exc.getMessage());
+            response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+        }
+    }
+
+    @GET
+    @Path(value = "/list")
+    @Produces(value = "application/json")
+    public Response listBookController() {
+        BasicResponse response = null;
+        try {
+            response = new SuccessResponse<>(bookService.getBooks());
+        } catch (Exception exc) {
+            exc.getStackTrace();
+            response = new FailResponse(exc.getMessage());
+        } finally {
+            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
         }
     }
 
@@ -71,15 +69,32 @@ public class BookController {
     @Produces(value = "application/json")
     @Consumes(value = "application/json")
     public Response updateBookController(Book request) {
-        BasicResponse basicResponse = null;
+        BasicResponse response = null;
         try {
             bookService.update(request);
-            basicResponse = new SuccessResponse<>();
+            response = new SuccessResponse<>();
         } catch (Exception exc) {
             exc.getStackTrace();
-            basicResponse = new FailResponse(exc.getMessage());
+            response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+        }
+    }
+
+    @POST
+    @Path(value = "/add-book")
+    @Produces(value = "application/json")
+    @Consumes(value = "application/json")
+    public Response addBookController(Book request) {
+        BasicResponse response = null;
+        try {
+            bookService.addDocumentToCollection(request);
+            response = new SuccessResponse<>();
+        } catch (Exception exc) {
+            exc.getStackTrace();
+            response = new FailResponse(exc.getMessage());
+        } finally {
+            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
         }
     }
 
@@ -87,29 +102,14 @@ public class BookController {
     @Path(value = "/{id}/delete")
     @Produces(value = "application/json")
     public Response deleteBookController(@PathParam(value = "id") String id) {
-        BasicResponse basicResponse = null;
+        BasicResponse response = null;
         try {
-            basicResponse = new SuccessResponse<>(bookService.delete(id));
+            response = new SuccessResponse<>(bookService.delete(id));
         } catch (Exception exc) {
             exc.getStackTrace();
-            basicResponse = new FailResponse(exc.getMessage());
+            response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
-        }
-    }
-
-    @GET
-    @Path(value = "/list")
-    @Produces(value = "application/json")
-    public Response listBookController() {
-        BasicResponse basicResponse = null;
-        try {
-            basicResponse = new SuccessResponse<>(bookService.getBooks());
-        } catch (Exception exc) {
-            exc.getStackTrace();
-            basicResponse = new FailResponse(exc.getMessage());
-        } finally {
-            return Response.status(basicResponse.getHttpStatus()).entity(basicResponse).build();
+            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
         }
     }
 
