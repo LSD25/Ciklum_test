@@ -13,6 +13,7 @@ public interface IBookDao extends IBasicDao<Book> {
 
     /**
      * Get all books in collection
+     *
      * @return all books in collection
      */
     List<Book> getBooks();

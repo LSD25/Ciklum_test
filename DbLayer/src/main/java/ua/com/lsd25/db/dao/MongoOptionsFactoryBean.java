@@ -6,6 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Mongo configuration
+ *
  * @author Victor Zagnitko on 31.03.2014.
  */
 public class MongoOptionsFactoryBean implements FactoryBean<MongoOptions>, InitializingBean {
