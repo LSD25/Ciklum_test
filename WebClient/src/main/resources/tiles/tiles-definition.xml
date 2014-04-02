@@ -12,7 +12,7 @@
     </definition>
 
     <definition name="home-page" extends="main-template">
-        <put-attribute name="body" value="/WEB-INF/pages/main/body.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/pages/body/home/home.jsp"/>
     </definition>
 
 </tiles-definitions>

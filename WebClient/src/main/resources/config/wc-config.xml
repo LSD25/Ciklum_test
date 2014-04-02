@@ -5,9 +5,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <context:annotation-config />
+    <context:annotation-config/>
     <context:component-scan base-package="ua.com.lsd25"/>
 
     <import resource="classpath:/mvc/mvc-context.xml"/>
+    <import resource="classpath:/tiles/tiles-context.xml"/>
 
 </beans>
