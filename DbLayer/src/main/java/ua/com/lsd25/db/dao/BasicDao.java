@@ -42,7 +42,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
     @Override
     public T findEntityById(String sId) {
         if (sId == null || sId.isEmpty() || !ObjectId.isValid(sId)) {
-            throw new IllegalArgumentException("Id argument: " + sId + " is wrong!");
+            throw new IllegalArgumentException("Id argument: '" + sId + "' is wrong!");
         }
         return findEntityById(new ObjectId(sId));
     }
@@ -56,7 +56,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
     @Override
     public T findEntityById(ObjectId id) {
         if (id == null) {
-            throw new IllegalArgumentException("Id argument: " + id + " is wrong!");
+            throw new IllegalArgumentException("Id argument: '" + id + "' is wrong!");
         }
         Query<T> query = getDatastore().createQuery(this.entityClazz);
         query = query.field("_id").equal(id);

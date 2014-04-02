@@ -1,13 +1,10 @@
 package ua.com.lsd25.services.response;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 /**
  * This class describe entity for fail response
  *
  * @author Victor Zagnitko on 01.04.2014.
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public final class FailResponse extends BasicResponse {
 
     private String errorMessage;

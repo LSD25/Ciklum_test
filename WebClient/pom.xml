@@ -24,6 +24,19 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- Spring framework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
@@ -46,6 +59,61 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring-security-version}</version>
+        </dependency>
+
+        <!-- JSF section -->
+
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet-api-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp-api-version}</version>
+        </dependency>
+
+        <!-- Tomcat 6 need this -->
+        <dependency>
+            <groupId>com.sun.el</groupId>
+            <artifactId>el-ri</artifactId>
+            <version>${el-ri-version}</version>
+        </dependency>
+
+        <!-- end -->
+
+        <!-- JSR-330 -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <!-- EL -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
         </dependency>
 
     </dependencies>
@@ -90,6 +158,17 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <path>${tomcat.context}</path>
+                    <port>${tomcat.webport}</port>
+                    <ajpPort>${tomcat.ajpport}</ajpPort>
+                </configuration>
+            </plugin>
+
         </plugins>
 
     </build>
@@ -100,6 +179,16 @@
         <maven-resources-plugin-version>2.6</maven-resources-plugin-version>
         <maven-war-plugin-version>2.3</maven-war-plugin-version>
         <spring-security-version>3.2.3.RELEASE</spring-security-version>
+        <jsf-version>2.2.6</jsf-version>
+        <jstl-version>1.2</jstl-version>
+        <servlet-api-version>3.0-alpha-1</servlet-api-version>
+        <jsp-api-version>2.2.1-b03</jsp-api-version>
+        <el-ri-version>1.0</el-ri-version>
+
+        <!-- tomcat -->
+        <tomcat.webport>8080</tomcat.webport>
+        <tomcat.ajpport>8182</tomcat.ajpport>
+        <tomcat.context>/</tomcat.context>
 
     </properties>
 
@@ -110,6 +199,17 @@
             <name>Java.net Repository for Maven</name>
             <url>http://download.java.net/maven/2/</url>
         </repository>
+
+        <repository>
+            <id>java.net.m2</id>
+            <name>java.net m2 repo</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+
+        <!--<repository>-->
+            <!--<id>java.net</id>-->
+            <!--<url>http://download.java.net/maven/2</url>-->
+        <!--</repository>-->
 
     </repositories>
 

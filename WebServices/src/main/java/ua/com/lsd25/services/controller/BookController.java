@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
  */
 @Controller
 @Path(value = "/book")
-public class BookController extends BasicController {
+public class BookController {
 
     private final Logger log = LoggerFactory.getLogger(BookController.class);
 
@@ -45,7 +45,7 @@ public class BookController extends BasicController {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+            return Response.status(response.getHttpStatus()).entity(response).build();
         }
     }
 
@@ -60,7 +60,7 @@ public class BookController extends BasicController {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+            return Response.status(response.getHttpStatus()).entity(response).build();
         }
     }
 
@@ -77,7 +77,7 @@ public class BookController extends BasicController {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+            return Response.status(response.getHttpStatus()).entity(response).build();
         }
     }
 
@@ -94,7 +94,7 @@ public class BookController extends BasicController {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+            return Response.status(response.getHttpStatus()).entity(response).build();
         }
     }
 
@@ -109,7 +109,7 @@ public class BookController extends BasicController {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
         } finally {
-            return Response.status(response.getHttpStatus()).entity(getSerializationObject(response)).build();
+            return Response.status(response.getHttpStatus()).entity(response).build();
         }
     }
 

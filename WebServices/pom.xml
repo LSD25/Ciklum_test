@@ -96,11 +96,11 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson-version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.google.code.gson</groupId>-->
+            <!--<artifactId>gson</artifactId>-->
+            <!--<version>${gson-version}</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
@@ -157,7 +157,7 @@
         <jsp-version>6.0.0</jsp-version>
         <jersey-json-version>1.18.1</jersey-json-version>
         <jackson-jaxrs-json-provider-version>2.3.2</jackson-jaxrs-json-provider-version>
-        <gson-version>2.2.4</gson-version>
+        <!--<gson-version>2.2.4</gson-version>-->
 
     </properties>
 
