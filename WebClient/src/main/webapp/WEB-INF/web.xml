@@ -24,36 +24,39 @@
         <param-value>classpath:/config/wc-config.xml</param-value>
     </context-param>
 
-    <!-- Start JSF -->
+    <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
+    <!--<filter>-->
+        <!--<filter-name>springSecurityFilterChain</filter-name>-->
+        <!--<filter-class>-->
+            <!--org.springframework.web.filter.DelegatingFilterProxy-->
+        <!--</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>springSecurityFilterChain</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!-- Enable Spring Filter End -->
+
+    <!-- Handles all requests into the application -->
     <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <servlet-class>          org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+            </param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- JSF URL mapping -->
     <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
+        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!-- Integrate JSF and Spring End-->
-    <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>
-            org.springframework.web.filter.DelegatingFilterProxy
-        </filter-class>
-    </filter>
+    <!--<welcome-file-list>-->
+        <!--<welcome-file>/WEB-INF/pages/home/home-page.xhtml</welcome-file>-->
+    <!--</welcome-file-list>-->
 
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <!-- Enable Spring Filter End -->
-
-    <welcome-file-list>
-        <welcome-file>/WEB-INF/pages/home/home-page.xhtml</welcome-file>
-    </welcome-file-list>
-    
 </web-app>
