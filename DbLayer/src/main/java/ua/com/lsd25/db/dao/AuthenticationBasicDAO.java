@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AuthenticationBasicDAO<T, K> extends BasicDAO<T, K> {
 
-    private final Logger log = LoggerFactory.getLogger(AuthenticationBasicDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationBasicDAO.class);
 
     /**
      * Constructor for create connection to database
@@ -35,7 +35,7 @@ public class AuthenticationBasicDAO<T, K> extends BasicDAO<T, K> {
                 throw new RuntimeException("MongoDB authentication failed: " + dbName);
             }
         }
-        log.info("Loaded entity: " + this.entityClazz.getSimpleName());
+        LOG.info("Loaded entity: " + this.entityClazz.getSimpleName());
     }
 
 }

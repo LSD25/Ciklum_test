@@ -97,9 +97,9 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>com.google.code.gson</groupId>-->
-            <!--<artifactId>gson</artifactId>-->
-            <!--<version>${gson-version}</version>-->
+        <!--<groupId>com.google.code.gson</groupId>-->
+        <!--<artifactId>gson</artifactId>-->
+        <!--<version>${gson-version}</version>-->
         <!--</dependency>-->
 
     </dependencies>
@@ -147,6 +147,35 @@
         </plugins>
 
     </build>
+
+    <profiles>
+
+        <profile>
+            <id>9081</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-jetty-plugin</artifactId>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <version>6.1.26RC0</version>
+                        <dependencies>
+                        </dependencies>
+                        <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <systemProperties>
+                                <systemProperty>
+                                    <name>jetty.port</name>
+                                    <value>9081</value>
+                                </systemProperty>
+                            </systemProperties>
+                            <stopPort>9981</stopPort>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
     <properties>
 

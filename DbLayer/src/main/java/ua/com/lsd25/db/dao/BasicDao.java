@@ -16,7 +16,7 @@ import ua.com.lsd25.db.common.dao.IBasicDao;
  */
 public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implements IBasicDao<T> {
 
-    private final Logger log = LoggerFactory.getLogger(BasicDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BasicDao.class);
 
     /**
      * Constructor for create connection to database
@@ -58,6 +58,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
         if (id == null) {
             throw new IllegalArgumentException("Id argument: '" + id + "' is wrong!");
         }
+        LOG.info("id: " + id.toStringMongod() + " is valid");
         Query<T> query = getDatastore().createQuery(this.entityClazz);
         query = query.field("_id").equal(id);
         return query.get();
@@ -75,7 +76,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
         }
         Key<T> key = getDatastore().merge(entity);
         Preconditions.checkNotNull(key, "Entity don't merged");
-        log.info("Success merged");
+        LOG.info("Success merged");
     }
 
     /**
@@ -88,6 +89,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
     public WriteResult delete(ObjectId id) {
         T entity = findEntityById(id);
         Preconditions.checkNotNull(entity, "Entity not found in database");
+        LOG.info("id: " + id.toStringMongod() + " is valid");
         return delete(entity);
     }
 
@@ -101,6 +103,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
     public WriteResult delete(String sId) {
         T entity = findEntityById(sId);
         Preconditions.checkNotNull(entity, "Entity not found in database");
+        LOG.info("id: " + sId + " is valid");
         return delete(entity);
     }
 
@@ -114,7 +117,7 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
         Preconditions.checkNotNull(entity, "Entity argument is wrong");
         Key<T> key = getDatastore().save(entity);
         Preconditions.checkNotNull(key, "Entity don't saved");
-        log.info("Success added new document");
+        LOG.info("Success added new document");
     }
 
 }

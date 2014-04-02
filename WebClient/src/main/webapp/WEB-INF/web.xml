@@ -13,35 +13,27 @@
         </listener-class>
     </listener>
 
-    <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
-    </listener>
-
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:/config/wc-config.xml</param-value>
     </context-param>
 
     <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
-    <!--<filter>-->
-        <!--<filter-name>springSecurityFilterChain</filter-name>-->
-        <!--<filter-class>-->
-            <!--org.springframework.web.filter.DelegatingFilterProxy-->
-        <!--</filter-class>-->
-    <!--</filter>-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
 
-    <!--<filter-mapping>-->
-        <!--<filter-name>springSecurityFilterChain</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
-    <!-- Enable Spring Filter End -->
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    Enable Spring Filter End
 
     <!-- Handles all requests into the application -->
     <servlet>
         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-        <servlet-class>          org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
@@ -56,7 +48,7 @@
     </servlet-mapping>
 
     <!--<welcome-file-list>-->
-        <!--<welcome-file>/WEB-INF/pages/home/home-page.xhtml</welcome-file>-->
+    <!--<welcome-file>/WEB-INF/pages/home/home-page.xhtml</welcome-file>-->
     <!--</welcome-file-list>-->
 
 </web-app>
