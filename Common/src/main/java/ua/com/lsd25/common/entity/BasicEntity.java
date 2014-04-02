@@ -23,8 +23,8 @@ public abstract class BasicEntity implements Serializable {
         super();
     }
 
-    public ObjectId getId() {
-        return id;
+    public String getId() {
+        return id.toStringMongod();
     }
 
 }
