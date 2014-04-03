@@ -16,6 +16,7 @@ import ua.com.lsd25.common.entity.Book;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +48,10 @@ public class ServerMediatorService {
         super();
     }
 
+    public List<Book> getBooks() throws Exception {
+        return getEntity(List.class, "list");
+    }
+
     public Book getBook(String uri) throws Exception {
         return getEntity(Book.class, uri);
     }
@@ -54,10 +59,16 @@ public class ServerMediatorService {
     private <T> T getEntity(Class<T> clazz, String uri) throws Exception {
         String url = getUrl(uri);
         String json = getJson(url);
-        Map<String, ?> bookResponseMap = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
+        Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
         });
-        Map<String, ?> bookMap = (Map<String, ?>) bookResponseMap.get(ENTITY);
-        return this.mMapper.convertValue(bookMap, clazz);
+        Object entityObj = bookResponse.get(ENTITY);
+        if(entityObj instanceof Map) {
+            Map<String, ?> bookMap = (Map<String, ?>) bookResponse.get(ENTITY);
+            return this.mMapper.convertValue(bookMap, clazz);
+        } else {
+            List<?> bookList = (List<?>) bookResponse.get(ENTITY);
+            return this.mMapper.convertValue(bookList, clazz);
+        }
     }
 
     private String getJson(String url) throws Exception {

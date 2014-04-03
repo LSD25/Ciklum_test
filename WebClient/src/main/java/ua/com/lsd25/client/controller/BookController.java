@@ -31,9 +31,16 @@ public class BookController {
         super();
     }
 
-    @RequestMapping(value = {"", "/", "*"}, method = RequestMethod.GET)
-    public String bookPageController() {
-        return "book-page";
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ModelAndView bookPageController() {
+        ModelAndView model = new ModelAndView("book-page");
+        try {
+            LOG.info("Start book page");
+            model.addObject("books", this.mServerMediatorService.getBooks());
+        } catch (Exception exc) {
+            exc.getStackTrace();
+        }
+        return model;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -41,7 +48,6 @@ public class BookController {
         LOG.info("Start find book by id: " + id);
         ModelAndView model = new ModelAndView("book-page");
         try {
-            LOG.info("Start book page");
             model.addObject("book", this.mServerMediatorService.getBook(id));
         } catch (Exception exc) {
             exc.printStackTrace();
