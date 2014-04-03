@@ -1,8 +1,7 @@
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <display-name>Cicklum test - web client</display-name>
 
@@ -12,11 +11,6 @@
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/config/wc-config.xml</param-value>
-    </context-param>
 
     <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
     <filter>
@@ -28,7 +22,7 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    Enable Spring Filter End
+    <!--Enable Spring Filter End-->
 
     <!-- Handles all requests into the application -->
     <servlet>
@@ -41,6 +35,11 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/config/wc-config.xml</param-value>
+    </context-param>
 
     <servlet-mapping>
         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>

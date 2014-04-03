@@ -19,6 +19,4 @@
         <put-attribute name="body" value="/WEB-INF/pages/body/login/login.jsp"/>
     </definition>
 
-
-
 </tiles-definitions>
