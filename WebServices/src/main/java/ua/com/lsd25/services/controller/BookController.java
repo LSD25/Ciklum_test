@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ua.com.lsd25.common.entity.Book;
+import ua.com.lsd25.common.response.BasicResponse;
+import ua.com.lsd25.common.response.FailResponse;
+import ua.com.lsd25.common.response.SuccessResponse;
 import ua.com.lsd25.db.common.service.IBookService;
-import ua.com.lsd25.services.response.BasicResponse;
-import ua.com.lsd25.services.response.FailResponse;
-import ua.com.lsd25.services.response.SuccessResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

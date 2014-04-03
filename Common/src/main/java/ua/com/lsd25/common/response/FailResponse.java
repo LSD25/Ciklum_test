@@ -1,4 +1,4 @@
-package ua.com.lsd25.services.response;
+package ua.com.lsd25.common.response;
 
 /**
  * This class describe entity for fail response

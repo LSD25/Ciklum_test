@@ -1,4 +1,4 @@
-package ua.com.lsd25.services.response;
+package ua.com.lsd25.common.response;
 
 import java.io.Serializable;
 
