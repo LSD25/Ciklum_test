@@ -12,19 +12,12 @@ import org.springframework.beans.factory.InitializingBean;
 public class MongoOptionsFactoryBean implements FactoryBean<MongoOptions>, InitializingBean {
 
     private static final MongoOptions MONGO_OPTIONS = new MongoOptions();
-
-    private int connectionsPerHost = MONGO_OPTIONS.connectionsPerHost;
-
-    private int threadsAllowedToBlockForConnectionMultiplier = MONGO_OPTIONS.threadsAllowedToBlockForConnectionMultiplier;
-
-    private int maxWaitTime = MONGO_OPTIONS.maxWaitTime;
-
-    private int connectTimeout = MONGO_OPTIONS.connectTimeout;
-
-    private int socketTimeout = MONGO_OPTIONS.socketTimeout;
-
     public boolean socketKeepAlive = MONGO_OPTIONS.socketKeepAlive;
-
+    private int connectionsPerHost = MONGO_OPTIONS.connectionsPerHost;
+    private int threadsAllowedToBlockForConnectionMultiplier = MONGO_OPTIONS.threadsAllowedToBlockForConnectionMultiplier;
+    private int maxWaitTime = MONGO_OPTIONS.maxWaitTime;
+    private int connectTimeout = MONGO_OPTIONS.connectTimeout;
+    private int socketTimeout = MONGO_OPTIONS.socketTimeout;
     private boolean autoConnectRetry = MONGO_OPTIONS.autoConnectRetry;
 
     private long maxAutoConnectRetryTime = MONGO_OPTIONS.maxAutoConnectRetryTime;

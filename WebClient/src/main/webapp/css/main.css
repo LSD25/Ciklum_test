@@ -2,14 +2,17 @@
     margin: 0;
     padding: 0;
 }
+
 html {
     background-color: #fff;
     height: 100%;
 }
+
 body {
     color: #333333;
-    font: 0.75em/1.5em Arial,sans-serif;
+    font: 0.75em/1.5em Arial, sans-serif;
 }
+
 .container {
     margin-left: auto;
     margin-right: auto;
@@ -21,11 +24,13 @@ body {
 #nav span {
     display: none;
 }
+
 #nav, #nav ul {
     list-style: none outside none;
     margin: 0;
     padding: 0;
 }
+
 #nav {
     background-color: #F5F5F5;
     border-bottom: 5px solid #333333;
@@ -35,6 +40,7 @@ body {
     position: relative;
     width: 98%;
 }
+
 #nav ul.subs {
     background-color: #FFFFFF;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
@@ -46,6 +52,7 @@ body {
     top: 54px;
     width: 96%;
 }
+
 #nav > li {
     border-bottom: 5px solid transparent;
     float: left;
@@ -57,6 +64,7 @@ body {
     -webkit-transition: all 300ms ease-in-out 0s;
     transition: all 300ms ease-in-out 0s;
 }
+
 #nav li a {
     display: block;
     text-decoration: none;
@@ -67,6 +75,7 @@ body {
     transition: color 450ms ease-in-out 0s, background-color 450ms ease-in-out 0s;
     white-space: normal;
 }
+
 #nav > li > a {
     color: #333333;
     display: block;
@@ -75,10 +84,12 @@ body {
     padding: 0 15px;
     text-transform: uppercase;
 }
+
 #nav > li:hover > a, #nav > a:hover {
     background-color: #F55856;
     color: #FFFFFF;
 }
+
 #nav li.active > a {
     background-color: #333333;
     color: #FFFFFF;
@@ -88,6 +99,7 @@ body {
 #nav li:hover ul.subs {
     display: block;
 }
+
 #nav ul.subs > li {
     display: inline-block;
     float: none;
@@ -95,18 +107,22 @@ body {
     vertical-align: top;
     width: 33%;
 }
+
 #nav ul.subs > li a {
     color: #777777;
     line-height: 20px;
 }
+
 #nav ul li a:hover {
     color: #F55856;
 }
+
 #nav ul.subs > li > a {
     font-size: 1.3em;
     margin-bottom: 10px;
     text-transform: uppercase;
 }
+
 #nav ul.subs > li li {
     float: none;
     padding-left: 8px;
@@ -116,24 +132,28 @@ body {
     -webkit-transition: padding 150ms ease-out 0s;
     transition: padding 150ms ease-out 0s;
 }
+
 #nav ul.subs > li li:hover {
     padding-left: 15px;
 }
 
 /* responsive rules */
-@media all and (max-width : 980px) {
+@media all and (max-width: 980px) {
     #nav > li {
         float: none;
         border-bottom: 0;
         margin-bottom: 0;
     }
+
     #nav ul.subs {
         position: relative;
         top: 0;
     }
+
     #nav li:hover ul.subs {
         display: none;
     }
+
     #nav li #s1:target + ul.subs,
     #nav li #s2:target + ul.subs {
         display: block;

@@ -5,7 +5,6 @@ import com.google.code.morphia.Morphia;
 import com.google.code.morphia.query.Query;
 import com.google.common.base.Preconditions;
 import com.mongodb.Mongo;
-import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,11 +85,17 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
      * @return result of operation
      */
     @Override
-    public WriteResult delete(ObjectId id) {
+    public Boolean delete(ObjectId id) {
         T entity = findEntityById(id);
         Preconditions.checkNotNull(entity, "Entity not found in database");
         LOG.info("id: " + id.toStringMongod() + " is valid");
-        return delete(entity);
+        try {
+            delete(entity);
+            return true;
+        } catch (Exception exc) {
+            exc.getStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -100,11 +105,17 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
      * @return result of operation
      */
     @Override
-    public WriteResult delete(String sId) {
+    public Boolean delete(String sId) {
         T entity = findEntityById(sId);
         Preconditions.checkNotNull(entity, "Entity not found in database");
         LOG.info("id: " + sId + " is valid");
-        return delete(entity);
+        try {
+            delete(entity);
+            return true;
+        } catch (Exception exc) {
+            exc.getStackTrace();
+        }
+        return false;
     }
 
     /**

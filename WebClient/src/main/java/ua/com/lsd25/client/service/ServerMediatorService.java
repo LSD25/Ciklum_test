@@ -1,8 +1,9 @@
 package ua.com.lsd25.client.service;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
@@ -48,34 +49,39 @@ public class ServerMediatorService {
         super();
     }
 
-    public List<Book> getBooks() throws Exception {
-        return getEntity(List.class, "list");
+    public List<Book> getBooks(HttpUriRequest httpUriRequest) throws Exception {
+        return getEntity(List.class, httpUriRequest);
     }
 
-    public Book getBook(String uri) throws Exception {
-        return getEntity(Book.class, uri);
+    public Book getBook(HttpUriRequest httpUriRequest) throws Exception {
+        return getEntity(Book.class, httpUriRequest);
     }
 
-    private <T> T getEntity(Class<T> clazz, String uri) throws Exception {
-        String url = getUrl(uri);
-        String json = getJson(url);
+    public Boolean deleteBook(HttpUriRequest httpUriRequest) throws Exception {
+        return getEntity(Boolean.class, httpUriRequest);
+    }
+
+    public String getUrl(String uri) {
+        StringBuilder sb = new StringBuilder("http://");
+        sb.append(this.mHost);
+        sb.append(":");
+        sb.append(this.mPort);
+        sb.append("/rest/book/");
+        sb.append(uri);
+        return sb.toString();
+    }
+
+    private <T> T getEntity(Class<T> clazz, HttpUriRequest httpUriRequest) throws Exception {
+        String json = getJson(httpUriRequest);
         Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
         });
-        Object entityObj = bookResponse.get(ENTITY);
-        if(entityObj instanceof Map) {
-            Map<String, ?> bookMap = (Map<String, ?>) bookResponse.get(ENTITY);
-            return this.mMapper.convertValue(bookMap, clazz);
-        } else {
-            List<?> bookList = (List<?>) bookResponse.get(ENTITY);
-            return this.mMapper.convertValue(bookList, clazz);
-        }
+        return this.mMapper.convertValue(bookResponse.get(ENTITY), clazz);
     }
 
-    private String getJson(String url) throws Exception {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpGet getRequest = new HttpGet(url);
-        getRequest.addHeader("accept", "application/json");
-        HttpResponse response = httpClient.execute(getRequest);
+    private String getJson(HttpUriRequest httpUriRequest) throws Exception {
+        httpUriRequest.addHeader("accept", "application/json");
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpResponse response = client.execute(httpUriRequest);
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
@@ -86,18 +92,8 @@ public class ServerMediatorService {
                 sb.append(line);
             }
         } finally {
-            httpClient.getConnectionManager().shutdown();
+            client.getConnectionManager().shutdown();
         }
-        return sb.toString();
-    }
-
-    private String getUrl(String uri) {
-        StringBuilder sb = new StringBuilder("http://");
-        sb.append(this.mHost);
-        sb.append(":");
-        sb.append(this.mPort);
-        sb.append("/rest/book/");
-        sb.append(uri);
         return sb.toString();
     }
 

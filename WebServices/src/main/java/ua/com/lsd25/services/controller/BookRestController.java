@@ -3,6 +3,7 @@ package ua.com.lsd25.services.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import ua.com.lsd25.common.entity.Book;
 import ua.com.lsd25.common.response.BasicResponse;
@@ -20,17 +21,18 @@ import javax.ws.rs.core.Response;
  */
 @Controller
 @Path(value = "/book")
-public class BookController {
+public class BookRestController {
 
-    private final Logger log = LoggerFactory.getLogger(BookController.class);
+    private final Logger log = LoggerFactory.getLogger(BookRestController.class);
 
     @Autowired
-    private IBookService bookService;
+    @Qualifier(value = "bookService")
+    private IBookService mBookService;
 
     /**
      *
      */
-    public BookController() {
+    public BookRestController() {
         super();
     }
 
@@ -40,7 +42,7 @@ public class BookController {
     public Response findBookByIdController(@PathParam(value = "id") String id) {
         BasicResponse response = null;
         try {
-            response = new SuccessResponse<>(bookService.findEntityById(id));
+            response = new SuccessResponse<>(this.mBookService.findEntityById(id));
         } catch (Exception exc) {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
@@ -55,7 +57,7 @@ public class BookController {
     public Response listBookController() {
         BasicResponse response = null;
         try {
-            response = new SuccessResponse<>(bookService.getBooks());
+            response = new SuccessResponse<>(this.mBookService.getBooks());
         } catch (Exception exc) {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());
@@ -71,7 +73,7 @@ public class BookController {
     public Response updateBookController(Book request) {
         BasicResponse response = null;
         try {
-            bookService.update(request);
+            this.mBookService.update(request);
             response = new SuccessResponse<>();
         } catch (Exception exc) {
             exc.getStackTrace();
@@ -88,7 +90,7 @@ public class BookController {
     public Response addBookController(Book request) {
         BasicResponse response = null;
         try {
-            bookService.addDocumentToCollection(request);
+            this.mBookService.addDocumentToCollection(request);
             response = new SuccessResponse<>();
         } catch (Exception exc) {
             exc.getStackTrace();
@@ -99,12 +101,12 @@ public class BookController {
     }
 
     @DELETE
-    @Path(value = "/{id}/delete")
+    @Path(value = "/{id}")
     @Produces(value = "application/json")
     public Response deleteBookController(@PathParam(value = "id") String id) {
         BasicResponse response = null;
         try {
-            response = new SuccessResponse<>(bookService.delete(id));
+            response = new SuccessResponse<>(this.mBookService.delete(id));
         } catch (Exception exc) {
             exc.getStackTrace();
             response = new FailResponse(exc.getMessage());

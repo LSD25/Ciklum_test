@@ -1,6 +1,5 @@
 package ua.com.lsd25.db.common.dao;
 
-import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
 
 /**
@@ -39,7 +38,7 @@ public interface IBasicDao<T> {
      * @param id to delete in database
      * @return result of operation
      */
-    WriteResult delete(ObjectId id);
+    Boolean delete(ObjectId id);
 
     /**
      * Delete document from collection by string id
@@ -47,7 +46,7 @@ public interface IBasicDao<T> {
      * @param sId to delete in database
      * @return result of operation
      */
-    WriteResult delete(String sId);
+    Boolean delete(String sId);
 
     /**
      * Save document in collection
