@@ -32,6 +32,8 @@ public class ServerMediatorService {
 
     private static final String ENTITY = "entity";
 
+    private static final String MESSAGE = "message";
+
     @Autowired
     @Qualifier(value = "mapper")
     private ObjectMapper mMapper;
@@ -57,8 +59,8 @@ public class ServerMediatorService {
         return getEntity(Book.class, httpUriRequest);
     }
 
-    public Boolean deleteBook(HttpUriRequest httpUriRequest) throws Exception {
-        return getEntity(Boolean.class, httpUriRequest);
+    public String deleteBook(HttpUriRequest httpUriRequest) throws Exception {
+        return getMessage(httpUriRequest);
     }
 
     public String getUrl(String uri) {
@@ -76,6 +78,13 @@ public class ServerMediatorService {
         Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
         });
         return this.mMapper.convertValue(bookResponse.get(ENTITY), clazz);
+    }
+
+    private String getMessage(HttpUriRequest httpUriRequest) throws Exception {
+        String json = getJson(httpUriRequest);
+        Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
+        });
+        return this.mMapper.convertValue(bookResponse.get(MESSAGE), String.class);
     }
 
     private String getJson(HttpUriRequest httpUriRequest) throws Exception {

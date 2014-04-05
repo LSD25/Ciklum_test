@@ -13,7 +13,7 @@ public abstract class BasicResponse implements Serializable {
 
     protected String messageStatus;
 
-    protected String message = "sdfsdfsf";
+    protected String message;
 
     /**
      *

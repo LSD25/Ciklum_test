@@ -8,7 +8,7 @@
     <title>Cicklum test</title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/css/main.css"/>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="${contextPath}/js/script.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/book.js" type="text/javascript"></script>
 </head>
 
 <header>
