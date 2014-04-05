@@ -7,18 +7,19 @@ package ua.com.lsd25.db.dao.status;
  */
 public final class DaoStatusOperation {
 
-    public static String SUCCESS_UPDATE_ENTITY = "Success updated record in database";
+    public static final String SUCCESS_UPDATE_ENTITY = "Success updated record in database";
 
-    public static String FAIL_UPDATE_ENTITY = "Record cannot be updated in databaes";
+    public static final String FAIL_UPDATE_ENTITY = "Record cannot be updated in databaes";
 
-    public static String SUCCESS_DELETE_ENTITY = "Success deleted entity";
+    public static final String SUCCESS_DELETE_ENTITY = "Success deleted record in database";
 
-    public static String FAIL_DELETE_ENTITY = "Record cannot be deleted from the database";
+    public static final String FAIL_DELETE_ENTITY = "Record cannot be deleted from the database";
 
-    public static String SUCCESS_ADDED_NEW_ENTITY = "Success added new record in database";
+    public static final String SUCCESS_ADDED_NEW_ENTITY = "Success added new record in database";
 
-    public static String FAIL_ADDED_NEW_ENTITY = "Fail added new record in database";
+    public static final String FAIL_ADDED_NEW_ENTITY = "Fail added new record in database";
 
+    public static final String FAIL_FOUND_ENTITY = "Record not found in database";
 
     /**
      *

@@ -65,7 +65,8 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
         if (entity != null) {
             LOG.info("Find entity: " + entity.toString());
         } else {
-            LOG.info("Not found entity: " + entity.toString());
+            LOG.info("Not found entity: " + id);
+            throw new NullPointerException(DaoStatusOperation.FAIL_FOUND_ENTITY);
         }
         return entity;
     }

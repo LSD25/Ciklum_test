@@ -13,7 +13,7 @@ public abstract class BasicResponse implements Serializable {
 
     protected String messageStatus;
 
-    protected String message;
+    protected String message = "sdfsdfsf";
 
     /**
      *
@@ -36,6 +36,14 @@ public abstract class BasicResponse implements Serializable {
 
     public void setMessageStatus(String messageStatus) {
         this.messageStatus = messageStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
