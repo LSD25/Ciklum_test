@@ -13,30 +13,23 @@ $(document).ready(function () {
     $("#find-book").on("click", function () {
         var bookId = $("#book-id").val();
         $.ajax({
-            url: '/book/' + bookId,
+            url: bookId,
             type: "GET"
         }).done(function (data) {
             console.log(data);
-//            if(isEmpty(data)) {
+            if(data != "") {
                 $("#table").css('visibility', 'visible');
                 $("#id").text(data.id);
                 $("#name").text(data.name);
                 $("#author").text(data.author);
                 $("#description").text(data.description);
+                $("#pictureOfCover").empty();
                 $("#pictureOfCover").append("<a target='_blank' href = " + data.pictureOfCover + ">link</a>");
-//            } else {
-//                $("#table").css('visibility', 'hidden');
-//            }
+            } else {
+                $("#table").css('visibility', 'hidden');
+            }
         });
     });
-
-    function isEmpty(obj) {
-        var name;
-        for (name in obj) {
-            return false;
-        }
-        return true;
-    }
 
 });
 
