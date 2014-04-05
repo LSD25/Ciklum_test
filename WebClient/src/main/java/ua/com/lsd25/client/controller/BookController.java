@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.lsd25.client.service.ServerMediatorService;
+import ua.com.lsd25.common.entity.Book;
 import ua.com.lsd25.common.response.BasicResponse;
 import ua.com.lsd25.common.response.FailResponse;
 import ua.com.lsd25.common.response.SuccessResponse;
@@ -44,7 +45,7 @@ public class BookController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView bookPageController() {
-        ModelAndView model = new ModelAndView("book-page");
+        ModelAndView model = new ModelAndView("books-page");
         try {
             LOG.info("Start book page");
             HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(LIST)));
@@ -56,16 +57,23 @@ public class BookController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView findBookByIdController(@PathVariable String id) {
+    public
+    @ResponseBody
+    Book findBookByIdController(@PathVariable String id) {
         LOG.info("Start find book by id: " + id);
-        ModelAndView model = new ModelAndView("book-page");
+        Book book = null;
         try {
             HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(id)));
-            model.addObject("book", this.mServerMediatorService.getBook(httpUriRequest));
+            book = this.mServerMediatorService.getEntity(Book.class, httpUriRequest);
         } catch (Exception exc) {
             exc.printStackTrace();
         }
-        return model;
+        return book;
+    }
+
+    @RequestMapping(value = "/concrete", method = RequestMethod.GET)
+    public String findBookPageController() {
+        return "concrete-book-page";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

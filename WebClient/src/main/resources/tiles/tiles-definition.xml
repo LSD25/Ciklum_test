@@ -11,8 +11,12 @@
         <put-attribute name="footer" value="/WEB-INF/pages/main/footer.jsp"/>
     </definition>
 
-    <definition name="book-page" extends="main-template">
-        <put-attribute name="body" value="/WEB-INF/pages/body/book/book.jsp"/>
+    <definition name="books-page" extends="main-template">
+        <put-attribute name="body" value="/WEB-INF/pages/body/book/book-list.jsp"/>
+    </definition>
+
+    <definition name="concrete-book-page" extends="main-template">
+        <put-attribute name="body" value="/WEB-INF/pages/body/book/concrete-book.jsp"/>
     </definition>
 
     <definition name="login-page" extends="main-template">

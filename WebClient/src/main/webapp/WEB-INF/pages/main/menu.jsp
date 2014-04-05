@@ -7,13 +7,13 @@
             <ul class="subs">
                 <li><a href="#">Book panel</a>
                     <ul>
-                        <li><a href="#">Find book</a></li>
+                        <li><a href="${contextPath}/book/concrete">Find book</a></li>
                         <li><a href="#">Create a new book</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Book panel</a>
                     <ul>
-                        <li><a href="#">Book's list</a></li>
+                        <li><a href="${contextPath}/book/list">Book's list</a></li>
                     </ul>
                 </li>
             </ul>

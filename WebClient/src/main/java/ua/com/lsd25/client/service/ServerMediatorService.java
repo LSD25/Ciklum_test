@@ -52,15 +52,18 @@ public class ServerMediatorService {
     }
 
     public List<Book> getBooks(HttpUriRequest httpUriRequest) throws Exception {
-        return getEntity(List.class, httpUriRequest);
+        Map<String, ?> bookResponse = getJsonThroughRest(httpUriRequest);
+        return this.mMapper.convertValue(bookResponse.get(ENTITY), List.class);
     }
 
-    public Book getBook(HttpUriRequest httpUriRequest) throws Exception {
-        return getEntity(Book.class, httpUriRequest);
+    public <T> T getEntity(Class<T> entityClazz, HttpUriRequest httpUriRequest) throws Exception {
+        Map<String, ?> bookResponse = getJsonThroughRest(httpUriRequest);
+        return this.mMapper.convertValue(bookResponse.get(ENTITY), entityClazz);
     }
 
     public String deleteBook(HttpUriRequest httpUriRequest) throws Exception {
-        return getMessage(httpUriRequest);
+        Map<String, ?> bookResponse = getJsonThroughRest(httpUriRequest);
+        return String.valueOf(bookResponse.get(MESSAGE));
     }
 
     public String getUrl(String uri) {
@@ -73,18 +76,11 @@ public class ServerMediatorService {
         return sb.toString();
     }
 
-    private <T> T getEntity(Class<T> clazz, HttpUriRequest httpUriRequest) throws Exception {
+    private Map<String, ?> getJsonThroughRest(HttpUriRequest httpUriRequest) throws Exception {
         String json = getJson(httpUriRequest);
         Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
         });
-        return this.mMapper.convertValue(bookResponse.get(ENTITY), clazz);
-    }
-
-    private String getMessage(HttpUriRequest httpUriRequest) throws Exception {
-        String json = getJson(httpUriRequest);
-        Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
-        });
-        return this.mMapper.convertValue(bookResponse.get(MESSAGE), String.class);
+        return bookResponse;
     }
 
     private String getJson(HttpUriRequest httpUriRequest) throws Exception {
