@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.com.lsd25.db.common.dao.IBasicDao;
+import ua.com.lsd25.db.dao.status.DaoStatusOperation;
 
 /**
  * @author Victor Zagnitko on 31.03.2014.
@@ -60,7 +61,13 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
         LOG.info("id: " + id.toStringMongod() + " is valid");
         Query<T> query = getDatastore().createQuery(this.entityClazz);
         query = query.field("_id").equal(id);
-        return query.get();
+        T entity = query.get();
+        if (entity != null) {
+            LOG.info("Find entity: " + entity.toString());
+        } else {
+            LOG.info("Not found entity: " + entity.toString());
+        }
+        return entity;
     }
 
     /**
@@ -69,13 +76,17 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
      * @param entity to update
      */
     @Override
-    public void update(T entity) {
+    public String update(T entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity argument is wrong!");
         }
         Key<T> key = getDatastore().merge(entity);
-        Preconditions.checkNotNull(key, "Entity don't merged");
+        if (key == null) {
+            LOG.info("Entity don't merged");
+            throw new NullPointerException(DaoStatusOperation.FAIL_UPDATE_ENTITY);
+        }
         LOG.info("Success merged");
+        return DaoStatusOperation.SUCCESS_UPDATE_ENTITY;
     }
 
     /**
@@ -85,17 +96,19 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
      * @return result of operation
      */
     @Override
-    public Boolean delete(ObjectId id) {
+    public String delete(ObjectId id) {
         T entity = findEntityById(id);
         Preconditions.checkNotNull(entity, "Entity not found in database");
         LOG.info("id: " + id.toStringMongod() + " is valid");
         try {
             delete(entity);
-            return true;
+            LOG.info("Success delete entity: " + id.toStringMongod());
+            return DaoStatusOperation.SUCCESS_DELETE_ENTITY;
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail delete entity: " + id.toStringMongod());
+            throw new UnsupportedOperationException(DaoStatusOperation.FAIL_DELETE_ENTITY);
         }
-        return false;
     }
 
     /**
@@ -105,17 +118,19 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
      * @return result of operation
      */
     @Override
-    public Boolean delete(String sId) {
+    public String delete(String sId) {
         T entity = findEntityById(sId);
         Preconditions.checkNotNull(entity, "Entity not found in database");
         LOG.info("id: " + sId + " is valid");
         try {
             delete(entity);
-            return true;
+            LOG.info("Success delete entity: " + sId);
+            return DaoStatusOperation.SUCCESS_DELETE_ENTITY;
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail delete entity: " + sId);
+            throw new UnsupportedOperationException(DaoStatusOperation.FAIL_DELETE_ENTITY);
         }
-        return false;
     }
 
     /**
@@ -124,11 +139,16 @@ public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implem
      * @param entity to add in collection
      */
     @Override
-    public void addDocumentToCollection(T entity) {
+    public String addDocumentToCollection(T entity) {
         Preconditions.checkNotNull(entity, "Entity argument is wrong");
         Key<T> key = getDatastore().save(entity);
         Preconditions.checkNotNull(key, "Entity don't saved");
+        if (key == null) {
+            LOG.info("Entity don't saved");
+            throw new NullPointerException(DaoStatusOperation.FAIL_ADDED_NEW_ENTITY);
+        }
         LOG.info("Success added new document");
+        return DaoStatusOperation.SUCCESS_ADDED_NEW_ENTITY;
     }
 
 }

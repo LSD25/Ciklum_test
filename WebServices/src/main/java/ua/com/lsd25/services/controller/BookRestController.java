@@ -23,7 +23,7 @@ import javax.ws.rs.core.Response;
 @Path(value = "/book")
 public class BookRestController {
 
-    private final Logger log = LoggerFactory.getLogger(BookRestController.class);
+    private final Logger LOG = LoggerFactory.getLogger(BookRestController.class);
 
     @Autowired
     @Qualifier(value = "bookService")
@@ -43,8 +43,10 @@ public class BookRestController {
         BasicResponse response = null;
         try {
             response = new SuccessResponse<>(this.mBookService.findEntityById(id));
+            LOG.info("Success found the book");
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail found the book");
             response = new FailResponse(exc.getMessage());
         } finally {
             return Response.status(response.getHttpStatus()).entity(response).build();
@@ -58,8 +60,10 @@ public class BookRestController {
         BasicResponse response = null;
         try {
             response = new SuccessResponse<>(this.mBookService.getBooks());
+            LOG.info("Success take the list book");
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail take the list book");
             response = new FailResponse(exc.getMessage());
         } finally {
             return Response.status(response.getHttpStatus()).entity(response).build();
@@ -73,10 +77,11 @@ public class BookRestController {
     public Response updateBookController(Book request) {
         BasicResponse response = null;
         try {
-            this.mBookService.update(request);
-            response = new SuccessResponse<>();
+            response = new SuccessResponse<>(this.mBookService.update(request));
+            LOG.info("Success update the book");
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail update the book");
             response = new FailResponse(exc.getMessage());
         } finally {
             return Response.status(response.getHttpStatus()).entity(response).build();
@@ -90,10 +95,11 @@ public class BookRestController {
     public Response addBookController(Book request) {
         BasicResponse response = null;
         try {
-            this.mBookService.addDocumentToCollection(request);
-            response = new SuccessResponse<>();
+            response = new SuccessResponse<>(this.mBookService.addDocumentToCollection(request));
+            LOG.info("Success added a new book");
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail added a new book");
             response = new FailResponse(exc.getMessage());
         } finally {
             return Response.status(response.getHttpStatus()).entity(response).build();
@@ -107,8 +113,10 @@ public class BookRestController {
         BasicResponse response = null;
         try {
             response = new SuccessResponse<>(this.mBookService.delete(id));
+            LOG.info("Success deleted a new book");
         } catch (Exception exc) {
             exc.getStackTrace();
+            LOG.info("Fail deleted a new book");
             response = new FailResponse(exc.getMessage());
         } finally {
             return Response.status(response.getHttpStatus()).entity(response).build();

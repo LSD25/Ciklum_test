@@ -19,6 +19,11 @@ public final class SuccessResponse<T> extends BasicResponse {
         this.messageStatus = ResponseStatus.OK.name();
     }
 
+    public SuccessResponse(String message) {
+        this();
+        this.message = message;
+    }
+
     public SuccessResponse(T entity) {
         this();
         this.entity = entity;

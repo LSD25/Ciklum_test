@@ -7,8 +7,6 @@ package ua.com.lsd25.common.response;
  */
 public final class FailResponse extends BasicResponse {
 
-    private String errorMessage;
-
     /**
      *
      */
@@ -17,17 +15,17 @@ public final class FailResponse extends BasicResponse {
     }
 
     public FailResponse(String errorMessage) {
-        this.errorMessage = errorMessage;
+        this.message = errorMessage;
         this.messageStatus = ResponseStatus.INTERNAL_SERVER_ERROR.name();
         this.httpStatus = ResponseStatus.INTERNAL_SERVER_ERROR.getHttpStatus();
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

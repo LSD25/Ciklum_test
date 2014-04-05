@@ -5,7 +5,8 @@ $(document).ready(function () {
             url: bookId,
             type: "DELETE"
         }).done(function (data) {
-            alert(data);
+            alert(data.message);
+            Location.reload();
         });
     });
 });

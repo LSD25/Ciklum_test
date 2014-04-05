@@ -30,7 +30,7 @@ public interface IBasicDao<T> {
      *
      * @param entity to update
      */
-    void update(T entity);
+    String update(T entity);
 
     /**
      * Delete document from collection by object id
@@ -38,7 +38,7 @@ public interface IBasicDao<T> {
      * @param id to delete in database
      * @return result of operation
      */
-    Boolean delete(ObjectId id);
+    String delete(ObjectId id);
 
     /**
      * Delete document from collection by string id
@@ -46,13 +46,13 @@ public interface IBasicDao<T> {
      * @param sId to delete in database
      * @return result of operation
      */
-    Boolean delete(String sId);
+    String delete(String sId);
 
     /**
      * Save document in collection
      *
      * @param entity to add in collection
      */
-    void addDocumentToCollection(T entity);
+    String addDocumentToCollection(T entity);
 
 }

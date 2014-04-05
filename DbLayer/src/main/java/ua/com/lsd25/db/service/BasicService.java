@@ -48,8 +48,8 @@ public abstract class BasicService<T> implements IBasicService<T> {
      * @param entity to update
      */
     @Override
-    public void update(T entity) {
-        this.mBasicDao.update(entity);
+    public String update(T entity) {
+        return this.mBasicDao.update(entity);
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class BasicService<T> implements IBasicService<T> {
      * @return result of operation
      */
     @Override
-    public Boolean delete(ObjectId id) {
+    public String delete(ObjectId id) {
         return this.mBasicDao.delete(id);
     }
 
@@ -70,7 +70,7 @@ public abstract class BasicService<T> implements IBasicService<T> {
      * @return result of operation
      */
     @Override
-    public Boolean delete(String sId) {
+    public String delete(String sId) {
         return this.mBasicDao.delete(sId);
     }
 
@@ -80,8 +80,8 @@ public abstract class BasicService<T> implements IBasicService<T> {
      * @param entity to add in collection
      */
     @Override
-    public void addDocumentToCollection(T entity) {
-        this.mBasicDao.addDocumentToCollection(entity);
+    public String addDocumentToCollection(T entity) {
+        return this.mBasicDao.addDocumentToCollection(entity);
     }
 
     /**

@@ -1,22 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../../jsp-header.jsp" %>
 
-<%--<script>--%>
-<%--$( document ).ready(function() {--%>
-<%--$.ajax({--%>
-<%--url: "test.html",--%>
-<%--cache: false,--%>
-<%--success: function(html){--%>
-<%--$("#results").append(html);--%>
-<%--}--%>
-<%--});--%>
-
-<%--$( "#delete-book" ).click(function() {--%>
-<%--alert( this.attribute("book-id"));--%>
-<%--});--%>
-<%--});--%>
-<%--</script>--%>
-
 <div id="main">
 
     <table border="1" style="width:300px">
@@ -49,7 +33,7 @@
                 <td>${book.author}</td>
                 <td>${book.description}</td>
                 <td><a href="${book.pictureOfCover}" target="_blank">${book.pictureOfCover}</a></td>
-                <td><a id="delete-book" book-id="${book.id}" href="javascrip:void(null)">delete</a></td>
+                <td><a id="delete-book" onclick="return false;" href="#">delete</a></td>
             </tr>
         </c:forEach>
 
