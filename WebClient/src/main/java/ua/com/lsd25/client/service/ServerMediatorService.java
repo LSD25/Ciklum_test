@@ -2,6 +2,7 @@ package ua.com.lsd25.client.service;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -14,8 +15,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ua.com.lsd25.common.entity.Book;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +35,9 @@ public class ServerMediatorService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerMediatorService.class);
 
-    private static final String ENTITY = "entity";
+    private static final int OK = 200;
 
-    private static final String MESSAGE = "message";
+    private static final String ENTITY = "entity";
 
     @Autowired
     @Qualifier(value = "mapper")
@@ -49,6 +54,26 @@ public class ServerMediatorService {
      */
     public ServerMediatorService() {
         super();
+    }
+
+    /**
+     * Check server connection
+     */
+    @PostConstruct
+    public void checkServerConnection() throws IOException, URISyntaxException {
+        LOG.info("Start check server connection");
+        HttpUriRequest httpUriRequest = new HttpPost(new URI(getTestUrl()));
+        HttpResponse response = null;
+        try {
+            response = getHttpResponse(httpUriRequest);
+        } catch (Exception exc) {
+            exc.getStackTrace();
+        }
+        if (response == null || response.getStatusLine().getStatusCode() != OK) {
+            throw new RuntimeException("Cannot connect to the server");
+        } else {
+            LOG.info("Success connect to the server");
+        }
     }
 
     /**
@@ -123,10 +148,7 @@ public class ServerMediatorService {
      * @throws Exception if operation has error
      */
     private String getJson(HttpUriRequest httpUriRequest) throws Exception {
-        httpUriRequest.addHeader("accept", "application/json");
-        httpUriRequest.setHeader("Content-Type", "application/json");
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpResponse response = client.execute(httpUriRequest);
+        HttpResponse response = getHttpResponse(httpUriRequest);
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
@@ -137,8 +159,36 @@ public class ServerMediatorService {
                 sb.append(line);
             }
         } finally {
-            client.getConnectionManager().shutdown();
+            HttpClientBuilder.create().build().getConnectionManager().shutdown();
         }
+        return sb.toString();
+    }
+
+    /**
+     * Get http response from server
+     *
+     * @param httpUriRequest request object
+     * @return object ofr http response
+     * @throws IOException if operation has error
+     */
+    private HttpResponse getHttpResponse(HttpUriRequest httpUriRequest) throws IOException {
+        httpUriRequest.addHeader("accept", "application/json");
+        httpUriRequest.setHeader("Content-Type", "application/json");
+        HttpClient client = HttpClientBuilder.create().build();
+        return client.execute(httpUriRequest);
+    }
+
+    /**
+     * Create url for test server
+     *
+     * @return created string to test server
+     */
+    private String getTestUrl() {
+        StringBuilder sb = new StringBuilder("http://");
+        sb.append(this.mHost);
+        sb.append(":");
+        sb.append(this.mPort);
+        sb.append("/rest/test/server");
         return sb.toString();
     }
 

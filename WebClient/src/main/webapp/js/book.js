@@ -16,6 +16,7 @@ $(document).ready(function () {
                 $("#book-pictureOfCover").val(data.pictureOfCover);
             } else {
                 $("#table").css('visibility', 'hidden');
+                alert("Book not found");
             }
         });
     });
