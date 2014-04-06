@@ -1,22 +1,7 @@
 $(document).ready(function () {
 
-    $("#delete-book").on("click", function () {
-        var bookId = $(this).parents().eq(1).find("td").html();
-        $.ajax({
-            url: bookId,
-            type: "DELETE"
-        }).done(function (data) {
-            if (data.message == null) {
-                alert("Fail operation");
-            } else {
-                alert(data.message);
-            }
-            location.reload();
-        });
-    });
-
     $("#find-book").on("click", function () {
-        var bookId = $("#book-id").val();
+        var bookId = $("#found-book-id").val();
         $.ajax({
             url: '/book/' + bookId,
             type: "GET"
@@ -24,11 +9,11 @@ $(document).ready(function () {
             console.log(data);
             if (data != "") {
                 $("#table").css('visibility', 'visible');
-                $("#id").html('<input value=' + data.id + '>');
-                $("#name").html('<input value=' + data.name + '>');
-                $("#author").html('<input value=' + data.author + '>');
-                $("#description").html('<input value=' + data.description + '>');
-                $("#pictureOfCover").html('<input value=' + data.pictureOfCover + '>');
+                $("#book-id").val(data.id);
+                $("#book-name").val(data.name);
+                $("#book-author").val(data.author);
+                $("#book-description").val(data.description);
+                $("#book-pictureOfCover").val(data.pictureOfCover);
             } else {
                 $("#table").css('visibility', 'hidden');
             }
@@ -54,7 +39,7 @@ $(document).ready(function () {
             } else {
                 alert(data.message);
             }
-            location.reload();
+            window.location.href = '/book/list';
         });
     });
 
@@ -78,7 +63,7 @@ $(document).ready(function () {
             } else {
                 alert(data.message);
             }
-//            location.reload();
+            window.location.href = '/book/list';
         });
     });
 

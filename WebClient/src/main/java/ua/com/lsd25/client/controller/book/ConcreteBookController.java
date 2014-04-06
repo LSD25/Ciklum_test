@@ -1,6 +1,5 @@
 package ua.com.lsd25.client.controller.book;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -33,6 +32,8 @@ public class ConcreteBookController {
 
     private static final String UPDATE = "update";
 
+    private static final String LIST_URI = "list";
+
     @Autowired
     @Qualifier(value = "serverMediatorService")
     private ServerMediatorService mServerMediatorService;
@@ -47,7 +48,7 @@ public class ConcreteBookController {
     @RequestMapping(value = "/concrete", method = RequestMethod.GET)
     public ModelAndView findBookPageController(@RequestParam(required = false) String id) {
         ModelAndView model = new ModelAndView("concrete-book-page");
-        if(id != null && !id.isEmpty()) {
+        if (id != null && !id.isEmpty()) {
             Map<String, Object> response = new LinkedHashMap<>();
             try {
                 HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(id)));
@@ -61,12 +62,14 @@ public class ConcreteBookController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public @ResponseBody Map<String, ?> updateBookController(@RequestBody String request) {
+    public
+    @ResponseBody
+    Map<String, ?> updateBookController(@RequestBody String request) {
         LOG.info("Start update book");
         Map<String, Object> response = new LinkedHashMap<>();
         try {
             HttpUriRequest httpUriRequest = new HttpPut(new URI(this.mServerMediatorService.getUrl(UPDATE)));
-            ((HttpPut)httpUriRequest).setEntity(new StringEntity(request));
+            ((HttpPut) httpUriRequest).setEntity(new StringEntity(request));
             response.putAll(this.mServerMediatorService.sendJsonRequestWithBody(httpUriRequest));
         } catch (Exception exc) {
             exc.getStackTrace();
@@ -89,19 +92,21 @@ public class ConcreteBookController {
         return book;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public
-    @ResponseBody
-    Map<String, ?> deleteBookByIdController(@PathVariable String id) {
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    public @ResponseBody ModelAndView deleteBookByIdController(@PathVariable String id) {
         LOG.info("Start find book by id: " + id);
+        ModelAndView model = new ModelAndView("books-page");
         Map<String, Object> response = new LinkedHashMap<>();
         try {
-            HttpUriRequest httpUriRequest = new HttpDelete(new URI(this.mServerMediatorService.getUrl(id)));
-            response.putAll(this.mServerMediatorService.sendJsonRequestWithBody(httpUriRequest));
+            HttpUriRequest httpDeleteUriRequest = new HttpDelete(new URI(this.mServerMediatorService.getUrl(id)));
+            HttpUriRequest httpListUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(LIST_URI)));
+            response.putAll(this.mServerMediatorService.sendJsonRequestWithBody(httpDeleteUriRequest));
+            model.addObject("deleteMessage", response.get("message"));
+            model.addObject("books", this.mServerMediatorService.getListEntities(httpListUriRequest));
         } catch (Exception exc) {
             exc.getStackTrace();
         }
-        return response;
+        return model;
     }
 
 }

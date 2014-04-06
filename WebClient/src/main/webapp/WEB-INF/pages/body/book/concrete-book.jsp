@@ -3,7 +3,7 @@
 
 <div id="main">
 
-    <input type="text" id="book-id" width="150px" placeholder="Please input id of book"/>
+    <input type="text" id="found-book-id" width="150px" placeholder="Please input id of book"/>
 
     <button type="button" id="find-book">Find book</button>
 
