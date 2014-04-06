@@ -8,7 +8,7 @@
                 <li><a href="#">Book panel</a>
                     <ul>
                         <li><a href="${contextPath}/book/concrete">Find book</a></li>
-                        <li><a href="#">Create a new book</a></li>
+                        <li><a href="${contextPath}/book/create-book">Create a new book</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Book panel</a>

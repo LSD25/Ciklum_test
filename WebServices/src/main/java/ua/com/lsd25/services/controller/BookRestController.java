@@ -15,7 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
- * Book webservice
+ * This controller handle request from the throught REST
  *
  * @author Victor Zagnitko on 01.04.2014.
  */

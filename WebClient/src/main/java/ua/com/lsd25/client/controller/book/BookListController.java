@@ -1,6 +1,5 @@
-package ua.com.lsd25.client.controller;
+package ua.com.lsd25.client.controller.book;
 
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.slf4j.Logger;
@@ -15,22 +14,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.lsd25.client.service.ServerMediatorService;
 import ua.com.lsd25.common.entity.Book;
-import ua.com.lsd25.common.response.BasicResponse;
-import ua.com.lsd25.common.response.FailResponse;
-import ua.com.lsd25.common.response.SuccessResponse;
 
 import java.net.URI;
 
 /**
+ * This controller handle request from the client, when client select list book's
+ *
  * @author Victor Zagnitko on 02.04.2014.
  */
 @Controller
 @RequestMapping(value = "/book")
-public class BookController {
+public class BookListController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BookListController.class);
 
-    private static final String LIST = "list";
+    private static final String LIST_URI = "list";
 
     @Autowired
     @Qualifier(value = "serverMediatorService")
@@ -39,7 +37,7 @@ public class BookController {
     /**
      *
      */
-    public BookController() {
+    public BookListController() {
         super();
     }
 
@@ -48,8 +46,8 @@ public class BookController {
         ModelAndView model = new ModelAndView("books-page");
         try {
             LOG.info("Start book page");
-            HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(LIST)));
-            model.addObject("books", this.mServerMediatorService.getBooks(httpUriRequest));
+            HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(LIST_URI)));
+            model.addObject("books", this.mServerMediatorService.getListEntities(httpUriRequest));
         } catch (Exception exc) {
             exc.getStackTrace();
         }
@@ -69,27 +67,6 @@ public class BookController {
             exc.printStackTrace();
         }
         return book;
-    }
-
-    @RequestMapping(value = "/concrete", method = RequestMethod.GET)
-    public String findBookPageController() {
-        return "concrete-book-page";
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public
-    @ResponseBody
-    BasicResponse deleteBookByIdController(@PathVariable String id) {
-        LOG.info("Start find book by id: " + id);
-        BasicResponse response;
-        try {
-            HttpUriRequest httpUriRequest = new HttpDelete(new URI(this.mServerMediatorService.getUrl(id)));
-            response = new SuccessResponse<>(this.mServerMediatorService.deleteBook(httpUriRequest));
-        } catch (Exception exc) {
-            exc.getStackTrace();
-            response = new FailResponse();
-        }
-        return response;
     }
 
 }

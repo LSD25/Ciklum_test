@@ -23,4 +23,8 @@
         <put-attribute name="body" value="/WEB-INF/pages/body/login/login.jsp"/>
     </definition>
 
+    <definition name="create-book-page" extends="main-template">
+        <put-attribute name="body" value="/WEB-INF/pages/body/book/create-book-page.jsp"/>
+    </definition>
+
 </tiles-definitions>

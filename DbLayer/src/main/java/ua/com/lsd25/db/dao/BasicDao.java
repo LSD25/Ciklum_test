@@ -12,6 +12,8 @@ import ua.com.lsd25.db.common.dao.IBasicDao;
 import ua.com.lsd25.db.dao.status.DaoStatusOperation;
 
 /**
+ * Basic DAO for all DAO, this class contains general method
+ *
  * @author Victor Zagnitko on 31.03.2014.
  */
 public abstract class BasicDao<T, K> extends AuthenticationBasicDAO<T, K> implements IBasicDao<T> {

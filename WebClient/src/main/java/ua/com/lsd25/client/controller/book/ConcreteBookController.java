@@ -1,0 +1,62 @@
+package ua.com.lsd25.client.controller.book;
+
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import ua.com.lsd25.client.service.ServerMediatorService;
+
+import java.net.URI;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**
+ * This controller handle request from the client, when client select any book
+ *
+ * @author Victor Zagnitko on 06.04.2014.
+ */
+@Controller
+@RequestMapping(value = "/book")
+public class ConcreteBookController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConcreteBookController.class);
+
+    @Autowired
+    @Qualifier(value = "serverMediatorService")
+    private ServerMediatorService mServerMediatorService;
+
+    /**
+     *
+     */
+    public ConcreteBookController() {
+        super();
+    }
+
+    @RequestMapping(value = "/concrete", method = RequestMethod.GET)
+    public String findBookPageController() {
+        return "concrete-book-page";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public
+    @ResponseBody
+    Map<String, ?> deleteBookByIdController(@PathVariable String id) {
+        LOG.info("Start find book by id: " + id);
+        Map<String, Object> response = new LinkedHashMap<>();
+        try {
+            HttpUriRequest httpUriRequest = new HttpDelete(new URI(this.mServerMediatorService.getUrl(id)));
+            response.putAll(this.mServerMediatorService.sendJsonRequestWithBody(httpUriRequest));
+        } catch (Exception exc) {
+            exc.getStackTrace();
+        }
+        return response;
+    }
+
+}

@@ -51,21 +51,49 @@ public class ServerMediatorService {
         super();
     }
 
-    public List<Book> getBooks(HttpUriRequest httpUriRequest) throws Exception {
+    /**
+     * Get list entites
+     *
+     * @param httpUriRequest request object
+     * @return
+     * @throws Exception if operation has error
+     */
+    public List<Book> getListEntities(HttpUriRequest httpUriRequest) throws Exception {
         Map<String, ?> bookResponse = getJsonThroughRest(httpUriRequest);
         return this.mMapper.convertValue(bookResponse.get(ENTITY), List.class);
     }
 
+    /**
+     * Received entity from the server
+     *
+     * @param entityClazz    to mapper object
+     * @param httpUriRequest request object
+     * @param <T>            parameter entity that will be received from the server
+     * @return found entity or null
+     * @throws Exception if has
+     */
     public <T> T getEntity(Class<T> entityClazz, HttpUriRequest httpUriRequest) throws Exception {
         Map<String, ?> bookResponse = getJsonThroughRest(httpUriRequest);
         return this.mMapper.convertValue(bookResponse.get(ENTITY), entityClazz);
     }
 
-    public String deleteBook(HttpUriRequest httpUriRequest) throws Exception {
-        Map<String, ?> bookResponse = getJsonThroughRest(httpUriRequest);
-        return String.valueOf(bookResponse.get(MESSAGE));
+    /**
+     * Remove entity from the database
+     *
+     * @param httpUriRequest
+     * @return status operation
+     * @throws Exception if operation has error
+     */
+    public Map<String, ?> sendJsonRequestWithBody(HttpUriRequest httpUriRequest) throws Exception {
+        return getJsonThroughRest(httpUriRequest);
     }
 
+    /**
+     * Create url to connect to the server
+     *
+     * @param uri to connect
+     * @return created url to connect to the server
+     */
     public String getUrl(String uri) {
         StringBuilder sb = new StringBuilder("http://");
         sb.append(this.mHost);
@@ -76,15 +104,27 @@ public class ServerMediatorService {
         return sb.toString();
     }
 
+    /**
+     * @param httpUriRequest request object
+     * @return received JSON from the server
+     * @throws Exception if operation has error
+     */
     private Map<String, ?> getJsonThroughRest(HttpUriRequest httpUriRequest) throws Exception {
         String json = getJson(httpUriRequest);
-        Map<String, ?> bookResponse = this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
+        return this.mMapper.readValue(json, new TypeReference<LinkedHashMap<String, ?>>() {
         });
-        return bookResponse;
     }
 
+    /**
+     * Get JSON from the server
+     *
+     * @param httpUriRequest request object
+     * @return received json from the server
+     * @throws Exception if operation has error
+     */
     private String getJson(HttpUriRequest httpUriRequest) throws Exception {
         httpUriRequest.addHeader("accept", "application/json");
+        httpUriRequest.setHeader("Content-Type", "application/json");
         HttpClient client = HttpClientBuilder.create().build();
         HttpResponse response = client.execute(httpUriRequest);
         StringBuilder sb = new StringBuilder();

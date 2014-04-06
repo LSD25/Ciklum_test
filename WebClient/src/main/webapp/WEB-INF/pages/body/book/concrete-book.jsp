@@ -13,6 +13,24 @@
     <table border="1" style="width:300px; visibility: hidden" id="table">
 
         <tr>
+            <th>
+                id
+            </th>
+            <th>
+                name
+            </th>
+            <th>
+                author
+            </th>
+            <th>
+                description
+            </th>
+            <th>
+                pictureOfCover
+            </th>
+        </tr>
+
+        <tr>
             <td id="id"></td>
             <td id="name"></td>
             <td id="author"></td>

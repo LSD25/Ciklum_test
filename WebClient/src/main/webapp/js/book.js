@@ -7,6 +7,7 @@ $(document).ready(function () {
             type: "DELETE"
         }).done(function (data) {
             alert(data.message);
+            location.reload();
         });
     });
 
@@ -28,6 +29,25 @@ $(document).ready(function () {
             } else {
                 $("#table").css('visibility', 'hidden');
             }
+        });
+    });
+
+    $("#create-book").on("click", function () {
+        var bookObject = new Object();
+        bookObject.name = $("#book-name").val();
+        bookObject.author = $("#book-author").val();
+        bookObject.description = $("#book-description").val();
+        bookObject.pictureOfCover = $("#book-pict-of-cover").val();
+        var bookJson = JSON.stringify(bookObject);
+        $.ajax({
+            url: '',
+            type: "POST",
+            dataType: 'json',
+            contentType: "application/json;charset=UTF-8",
+            data: bookJson
+        }).done(function (data) {
+            alert(data.message);
+            location.reload();
         });
     });
 
