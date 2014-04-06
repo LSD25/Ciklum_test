@@ -46,11 +46,11 @@ public class CreateBookController {
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
     public
     @ResponseBody
-    Map<String, ?> createBookController(@RequestBody String jsonBook) {
+    Map<String, ?> createBookController(@RequestBody String request) {
         Map<String, Object> response = new LinkedHashMap<>();
         try {
             HttpUriRequest httpUriRequest = new HttpPost(new URI(this.mServerMediatorService.getUrl(ADD_BOOK_URI)));
-            ((HttpPost) httpUriRequest).setEntity(new StringEntity(jsonBook));
+            ((HttpPost) httpUriRequest).setEntity(new StringEntity(request));
             response.putAll(this.mServerMediatorService.sendJsonRequestWithBody(httpUriRequest));
         } catch (Exception exc) {
             exc.printStackTrace();

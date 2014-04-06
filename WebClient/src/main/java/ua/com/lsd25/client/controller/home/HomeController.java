@@ -1,4 +1,4 @@
-package ua.com.lsd25.client.controller.book;
+package ua.com.lsd25.client.controller.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -6,7 +6,11 @@ $(document).ready(function () {
             url: bookId,
             type: "DELETE"
         }).done(function (data) {
-            alert(data.message);
+            if (data.message == null) {
+                alert("Fail operation");
+            } else {
+                alert(data.message);
+            }
             location.reload();
         });
     });
@@ -14,18 +18,17 @@ $(document).ready(function () {
     $("#find-book").on("click", function () {
         var bookId = $("#book-id").val();
         $.ajax({
-            url: bookId,
+            url: '/book/' + bookId,
             type: "GET"
         }).done(function (data) {
             console.log(data);
-            if(data != "") {
+            if (data != "") {
                 $("#table").css('visibility', 'visible');
-                $("#id").text(data.id);
-                $("#name").text(data.name);
-                $("#author").text(data.author);
-                $("#description").text(data.description);
-                $("#pictureOfCover").empty();
-                $("#pictureOfCover").append("<a target='_blank' href = " + data.pictureOfCover + ">link</a>");
+                $("#id").html('<input value=' + data.id + '>');
+                $("#name").html('<input value=' + data.name + '>');
+                $("#author").html('<input value=' + data.author + '>');
+                $("#description").html('<input value=' + data.description + '>');
+                $("#pictureOfCover").html('<input value=' + data.pictureOfCover + '>');
             } else {
                 $("#table").css('visibility', 'hidden');
             }
@@ -46,8 +49,36 @@ $(document).ready(function () {
             contentType: "application/json;charset=UTF-8",
             data: bookJson
         }).done(function (data) {
-            alert(data.message);
+            if (data.message == null) {
+                alert("Fail operation");
+            } else {
+                alert(data.message);
+            }
             location.reload();
+        });
+    });
+
+    $("#update-book").on("click", function () {
+        var bookObject = new Object();
+        bookObject.id = $("#book-id").val();
+        bookObject.name = $("#book-name").val();
+        bookObject.author = $("#book-author").val();
+        bookObject.description = $("#book-description").val();
+        bookObject.pictureOfCover = $("#book-pictureOfCover").val();
+        var bookJson = JSON.stringify(bookObject);
+        $.ajax({
+            url: '/book/update',
+            type: "PUT",
+            dataType: 'json',
+            contentType: "application/json;charset=UTF-8",
+            data: bookJson
+        }).done(function (data) {
+            if (data.message == null) {
+                alert("Fail operation");
+            } else {
+                alert(data.message);
+            }
+//            location.reload();
         });
     });
 

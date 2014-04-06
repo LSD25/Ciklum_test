@@ -16,10 +16,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan='2'>
+            <td>
+            <td>
                 <input name="submit" type="submit" value="Login"/>
-            <td colspan='2'>
-                <input name="reset" type="reset" value="Reset field"/>
+                <input name="reset" type="reset" value="Reset"/>
             </td>
         </tr>
     </table>

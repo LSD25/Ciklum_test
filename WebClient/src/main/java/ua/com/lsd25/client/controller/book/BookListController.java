@@ -7,13 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.lsd25.client.service.ServerMediatorService;
-import ua.com.lsd25.common.entity.Book;
 
 import java.net.URI;
 
@@ -52,21 +49,6 @@ public class BookListController {
             exc.getStackTrace();
         }
         return model;
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Book findBookByIdController(@PathVariable String id) {
-        LOG.info("Start find book by id: " + id);
-        Book book = null;
-        try {
-            HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(id)));
-            book = this.mServerMediatorService.getEntity(Book.class, httpUriRequest);
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return book;
     }
 
 }

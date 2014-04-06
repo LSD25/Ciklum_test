@@ -28,14 +28,20 @@
             <th>
                 pictureOfCover
             </th>
+            <td>
+                update
+            </td>
         </tr>
 
         <tr>
-            <td id="id">${book.entity.id}</td>
-            <td id="name">${book.entity.name}</td>
-            <td id="author">${book.entity.author}</td>
-            <td id="description">${book.entity.description}</td>
-            <td id="pictureOfCover">${book.entity.pictureOfCover}</td>
+            <td id="id"><input id = "book-id" type="text" value="${book.entity.id}"/></td>
+            <td id="name"><input id ="book-name" type="text" value="${book.entity.name}"/></td>
+            <td id="author"><input id = "book-author" type="text" value="${book.entity.author}"/></td>
+            <td id="description"><input id = "book-description" type="text" value="${book.entity.description}"/></td>
+            <td id="pictureOfCover"><input id = "book-pictureOfCover" type="text" value="${book.entity.pictureOfCover}"/></td>
+            <td>
+                <button type="button" id="update-book">Update book</button>
+            </td>
         </tr>
 
     </table>

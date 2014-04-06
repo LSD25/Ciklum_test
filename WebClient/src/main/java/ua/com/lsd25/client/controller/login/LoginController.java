@@ -24,7 +24,7 @@ public class LoginController {
         super();
     }
 
-    @RequestMapping(value = {"", "/", "*"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String loginPageController() {
         LOG.info("Start login page");
         return "login-page";
