@@ -25,10 +25,9 @@
                 delete
             </th>
         </tr>
-
         <c:forEach var="book" items="${books}">
             <tr>
-                <td>${book.id}</td>
+                <td><a href="${contextPath}/book/concrete/${book.id}"> ${book.id}</a></td>
                 <td>${book.name}</td>
                 <td>${book.author}</td>
                 <td>${book.description}</td>

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../../jsp-header.jsp" %>
-<form name='login-form' action="<c:url value='j_spring_security_check' />"
-      method='POST'>
+<form name='login-form' action="<c:url value='j_spring_security_check' />" method='POST'>
 
     <table>
         <tr>
@@ -18,12 +17,9 @@
         </tr>
         <tr>
             <td colspan='2'>
-                <input name="submit" type="submit" value="submit"/>
-            </td>
-        </tr>
-        <tr>
+                <input name="submit" type="submit" value="Login"/>
             <td colspan='2'>
-                <input name="reset" type="reset"/>
+                <input name="reset" type="reset" value="Reset field"/>
             </td>
         </tr>
     </table>

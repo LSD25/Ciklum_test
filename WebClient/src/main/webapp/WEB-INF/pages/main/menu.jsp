@@ -18,9 +18,9 @@
                 </li>
             </ul>
         </li>
-        <li><a href="#">About
+        <li><a href="${contextPath}/about">About
             <author></author>
         </a></li>
-        <li><a href="#">Logout</a></li>
+        <li><a href="<c:url value="j_spring_security_logout" />">Logout</a></li>
     </ul>
 </div>

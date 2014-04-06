@@ -1,6 +1,7 @@
 package ua.com.lsd25.client.controller.book;
 
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import ua.com.lsd25.client.service.ServerMediatorService;
 
 import java.net.URI;
@@ -42,6 +44,20 @@ public class ConcreteBookController {
     @RequestMapping(value = "/concrete", method = RequestMethod.GET)
     public String findBookPageController() {
         return "concrete-book-page";
+    }
+
+    @RequestMapping(value = "/concrete/{id}", method = RequestMethod.GET)
+    public ModelAndView findBookPageController(@PathVariable String id) {
+        ModelAndView model = new ModelAndView("concrete-book-page");
+        Map<String, Object> response = new LinkedHashMap<>();
+        try {
+            HttpUriRequest httpUriRequest = new HttpGet(new URI(this.mServerMediatorService.getUrl(id)));
+            response.putAll(this.mServerMediatorService.sendJsonRequestWithBody(httpUriRequest));
+        } catch (Exception exc) {
+            exc.getStackTrace();
+        }
+        model.addObject("book", response);
+        return model;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -6,11 +6,14 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http auto-config="true">
-        <intercept-url pattern="/book/**" access="ROLE_USER"/>
-        <intercept-url pattern="/" access="ROLE_USER"/>
-        <form-login login-page="/login" default-target-url="/book/list" authentication-failure-url="/login"/>
-        <logout logout-success-url="/logout"/>
+    <http auto-config="true" use-expressions="true">
+
+        <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/logout" access="permitAll" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <form-login login-page="/login" default-target-url="/book/list" authentication-failure-url="/login" />
+        <logout logout-success-url="/login" />
+
     </http>
 
     <authentication-manager>
